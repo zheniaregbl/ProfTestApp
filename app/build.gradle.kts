@@ -87,7 +87,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.6")
 
     // Yandex Mapkit
-    implementation("com.yandex.android:maps.mobile:4.5.0-full")
+    implementation("com.yandex.android:maps.mobile:4.4.0-full")
 }
 
 kapt {
