@@ -5,12 +5,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.view.WindowCompat
 import com.example.proftestapp.core.AppConstants
 import com.example.proftestapp.ui.MapScreen
 import com.example.proftestapp.ui.theme.ProfTestAppTheme
@@ -30,24 +26,127 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContent {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
-            MapKitFactory.setApiKey(AppConstants.API_KEY)
-            MapKitFactory.initialize(this)
+        MapKitFactory.setApiKey(AppConstants.API_KEY)
+        MapKitFactory.initialize(this)
 
-            mapView = MapView(this)
+        val style = "[" +
+                "        {" +
+                "            \"types\": \"polyline\"," +
+                "            \"elements\": \"geometry.fill\"," +
+                "            \"tags\": {" +
+                "                \"all\": [" +
+                "                    \"road\"" +
+                "                ]" +
+                "            }," +
+                "            \"stylers\": {" +
+                "                \"color\": \"e9e9e9\"" +
+                "            }" +
+                "        }," +
+                "        {" +
+                "            \"types\": \"polyline\"," +
+                "            \"elements\": \"geometry.outline\"," +
+                "            \"tags\": {" +
+                "                \"all\": [" +
+                "                    \"road\"" +
+                "                ]" +
+                "            }," +
+                "            \"stylers\": {" +
+                "                \"color\": \"9f9f9f\"" +
+                "            }" +
+                "        }," +
+                "        {" +
+                "            \"types\": \"polygon\"," +
+                "            \"elements\": \"geometry.fill\"," +
+                "            \"tags\": {" +
+                "                \"all\": [" +
+                "                    \"land\"" +
+                "                ]" +
+                "            }," +
+                "            \"stylers\": {" +
+                "                \"color\": \"e4e4e4\"" +
+                "            }" +
+                "        }," +
+                "        {" +
+                "            \"types\": \"polygon\"," +
+                "            \"elements\": \"geometry.fill\"," +
+                "            \"tags\": {" +
+                "                \"all\": [" +
+                "                    \"landcover\"" +
+                "                ]" +
+                "            }," +
+                "            \"stylers\": {" +
+                "                \"color\": \"e0e3e7\"" +
+                "            }" +
+                "        }," +
+                "        {" +
+                "            \"types\": \"polygon\"," +
+                "            \"elements\": \"geometry.fill\"," +
+                "            \"tags\": {" +
+                "                \"all\": [" +
+                "                    \"residential\"" +
+                "                ]" +
+                "            }," +
+                "            \"stylers\": {" +
+                "                \"color\": \"e9ecf0\"" +
+                "            }" +
+                "        }," +
+                "        {" +
+                "            \"types\": \"polygon\"," +
+                "            \"elements\": \"geometry.fill\"," +
+                "            \"tags\": {" +
+                "                \"all\": [" +
+                "                    \"industrial\"" +
+                "                ]" +
+                "            }," +
+                "            \"stylers\": {" +
+                "                \"color\": \"f6e7d6\"" +
+                "            }" +
+                "        }," +
+                "        {" +
+                "            \"types\": \"polygon\"," +
+                "            \"elements\": \"geometry.fill\"," +
+                "            \"tags\": {" +
+                "                \"all\": [" +
+                "                    \"cemetery\"" +
+                "                ]" +
+                "            }," +
+                "            \"stylers\": {" +
+                "                \"color\": \"c8cbce\"" +
+                "            }" +
+                "        }," +
+                "        {" +
+                "            \"types\": \"polygon\"," +
+                "            \"elements\": \"geometry.fill\"," +
+                "            \"tags\": {" +
+                "                \"all\": [" +
+                "                    \"park\"" +
+                "                ]" +
+                "            }," +
+                "            \"stylers\": {" +
+                "                \"color\": \"e0e3e7\"" +
+                "            }" +
+                "        }" +
+                "    ]"
 
-            mapView.mapWindow.map.logo.setAlignment(
-                Alignment(
-                    HorizontalAlignment.RIGHT,
-                    VerticalAlignment.TOP
-                )
+        mapView = MapView(this)
+
+        mapView.mapWindow.map.setMapStyle(style)
+
+        mapView.mapWindow.map.logo.setAlignment(
+            Alignment(
+                HorizontalAlignment.RIGHT,
+                VerticalAlignment.BOTTOM
             )
+        )
+        
+        setContent {
             
             ProfTestAppTheme {
 
                 LockScreenOrientation(orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
-                
+
                 MapScreen(
                     modifier = Modifier
                         .fillMaxSize(),
